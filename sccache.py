@@ -33,20 +33,18 @@ class SCCache(object):
         tmpdict.update({'chrootuid': self.buildroot.chrootuid})
         self.sccachePath = self.sccache_opts['dir'] % tmpdict
         buildroot.preexisting_deps.append("sccache")
-        plugins.add_hook("prebuild", self._sccacheBuildHook)
+        plugins.add_hook("prebuild", self._sccachePreBuildHook)
         plugins.add_hook("preinit", self._sccachePreInitHook)
         buildroot.mounts.add(
-            BindMountPoint(srcpath=self.sccachePath, bindpath=buildroot.make_chroot_path("/var/tmp/ccache")))
+            BindMountPoint(srcpath=self.sccachePath, bindpath=buildroot.make_chroot_path("/var/tmp/sccache")))
 
     # =============
     # 'Private' API
     # =============
-    # set the max size before we actually use it during a build. ccache itself
-    # manages size and settings. we also set a few variables used by ccache to
-    # find the shared cache.
+    # start the sccache server before build
     @traceLog()
-    def _sccacheBuildHook(self):
-        self.buildroot.doChroot("sccache", "--start-server", shell=False)
+    def _sccachePreBuildHook(self):
+        self.buildroot.doChroot(["sccache", "--start-server"], shell=False)
 
     # set up the sccache dir.
     # we also set a few variables used by sccache to find the shared cache.

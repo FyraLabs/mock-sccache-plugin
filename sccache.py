@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # vim:expandtab:autoindent:tabstop=4:shiftwidth=4:filetype=python:textwidth=0:
-# License: GPL2 or later see COPYING
+# License: GPL2 or later see LICENSE
+# Based on the Mock ccache plugin:
 # Written by Michael Brown
 # Copyright (C) 2007 Michael E Brown <mebrown@michaels-house.net>
 

@@ -10,7 +10,13 @@ You'll need to copy sccache.py into your Mock plugins directory, such as `/usr/l
 
 Then within your Mock configuration, you'll have to configure the plugin, for example:
 
-TODO
+```python
+config_opts['plugin_conf']['sccache_enable'] = True
+config_opts['plugin_conf']['sccache_opts']['max_cache_size'] = '4G'
+config_opts['plugin_conf']['sccache_opts']['compress'] = None
+config_opts['plugin_conf']['sccache_opts']['dir'] = "%(cache_topdir)s/%(root)s/sccache/u%(chrootuid)s/"
+config_opts['plugin_conf']['sccache_opts']['hashdir'] = True
+```
 
 ## Credits
 
